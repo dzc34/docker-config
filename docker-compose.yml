@@ -1,0 +1,14 @@
+# Start httpd service from container and share ~/public_http.
+web:
+  build: build/httpd/2.4
+  #image: llaumgui/centos-httpd24
+  ports:
+   - "80:80"
+   - "443:443"
+  privileged: true
+  volumes:
+   - ~/public_html:/var/www/html
+#  links:
+#   - database
+#   - php
+#   - memcached

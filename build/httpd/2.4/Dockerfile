@@ -1,0 +1,30 @@
+# Apache
+FROM centos
+MAINTAINER Guillaume Kulakowski <guillaume@kulakowski.fr>
+
+LABEL Description="CentOS HTTPd 2.4 from SCL (< 2.4.10)"
+LABEL Vendor="Guillaume Kulakowski"
+LABEL Version=2.4-1.0
+
+EXPOSE 80
+
+# Install SCL
+RUN yum localinstall -y https://www.softwarecollections.org/en/scls/rhscl/httpd24/epel-7-x86_64/download/rhscl-httpd24-epel-7-x86_64.noarch.rpm
+
+# Install HTTPd 2.4 from SCL
+RUN yum update -y && yum install -y httpd24 \
+  httpd24-httpd-tools
+RUN yum clean all
+
+# symlink
+RUN ln -s /opt/rh/httpd24/root/etc/httpd/ /etc
+
+# My configuration
+COPY conf.d /etc/httpd/conf.d
+COPY vhost /etc/httpd/conf.d
+
+# Simple startup script to avoid some issues observed with container restart
+ADD run-httpd.sh /run-httpd.sh
+RUN chmod -v +x /run-httpd.sh
+
+CMD ["/run-httpd.sh"]
