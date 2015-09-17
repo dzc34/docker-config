@@ -2,7 +2,7 @@
 FROM centos:7
 MAINTAINER Guillaume Kulakowski <guillaume@kulakowski.fr>
 
-LABEL Description="CentOS HTTPd 2.4 from SCL (> 2.4.10)"
+LABEL Description="CentOS HTTPd 2.4.12 from SCL"
 LABEL Vendor="Guillaume Kulakowski"
 LABEL Version=2.4-1.0
 
@@ -21,7 +21,7 @@ RUN ln -s /opt/rh/httpd24/root/etc/httpd/ /etc
 
 # My configuration
 COPY conf.d /etc/httpd/conf.d
-COPY vhost /etc/httpd/conf.d
+RUN mkdir /etc/httpd/vhost.d
 
 # Simple startup script to avoid some issues observed with container restart
 ADD run-httpd.sh /run-httpd.sh
