@@ -6,6 +6,7 @@ web:
    - "80:80"
   volumes:
    - ~/public_html:/var/www/html
+   - ./conf/vhost.d:/etc/httpd/vhost.d
 #  links:
 #   - database
 #   - php

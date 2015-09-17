@@ -8,7 +8,7 @@ LABEL Version=2.4-1.0
 
 EXPOSE 80
 
-# Install SCL
+# Install HTTPD24 from SCL
 RUN yum localinstall -y https://www.softwarecollections.org/en/scls/rhscl/httpd24/epel-7-x86_64/download/rhscl-httpd24-epel-7-x86_64.noarch.rpm
 
 # Install HTTPd 2.4 from SCL
