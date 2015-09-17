@@ -4,8 +4,6 @@ web:
   #image: llaumgui/centos-httpd24
   ports:
    - "80:80"
-   - "443:443"
-  privileged: true
   volumes:
    - ~/public_html:/var/www/html
 #  links:
