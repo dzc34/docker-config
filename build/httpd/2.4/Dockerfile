@@ -1,8 +1,8 @@
 # Apache
-FROM centos
+FROM centos:7
 MAINTAINER Guillaume Kulakowski <guillaume@kulakowski.fr>
 
-LABEL Description="CentOS HTTPd 2.4 from SCL (< 2.4.10)"
+LABEL Description="CentOS HTTPd 2.4 from SCL (> 2.4.10)"
 LABEL Vendor="Guillaume Kulakowski"
 LABEL Version=2.4-1.0
 
