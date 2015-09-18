@@ -1,5 +1,5 @@
 # Start httpd service from container and share ~/public_http.
-web:
+apache:
   build: build/httpd/2.4
   #image: llaumgui/centos-httpd24
   ports:
@@ -8,6 +8,14 @@ web:
    - ~/public_html:/var/www/html
    - ./conf/vhost.d:/etc/httpd/vhost.d
 #  links:
+   - php-fpm
 #   - database
-#   - php
 #   - memcached
+
+
+# Start php-fpm service from container
+php-fpm:
+  build: build/php-fpm/5.6
+  #image: llaumgui/centos-php56
+  ports:
+   - "9000:9000"
