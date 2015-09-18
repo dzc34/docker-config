@@ -16,7 +16,7 @@ RUN yum update -y && yum install -y httpd24 \
   httpd24-httpd-tools
 RUN yum clean all
 
-# symlink
+# Symlink
 RUN ln -s /opt/rh/httpd24/root/etc/httpd/ /etc
 
 # My configuration
