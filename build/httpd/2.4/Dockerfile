@@ -22,6 +22,7 @@ RUN ln -s /opt/rh/httpd24/root/etc/httpd/ /etc
 # My configuration
 COPY conf.d /etc/httpd/conf.d
 RUN mkdir /etc/httpd/vhost.d
+RUN rm -f /etc/httpd/conf.d/welcome.conf
 
 # Simple startup script to avoid some issues observed with container restart
 ADD run-httpd.sh /run-httpd.sh
