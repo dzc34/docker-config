@@ -39,6 +39,7 @@ RUN yum clean all
 # symlink
 RUN ln -s /etc/opt/rh/rh-php56/php.d/ /etc
 RUN ln -s /etc/opt/rh/rh-php56/php-fpm.d/ /etc
+RUN mkdir -p /var/www/html
 RUN sed -i "s/listen = 127.0.0.1:9000/listen = [::]:9000/g" /etc/php-fpm.d/www.conf
 RUN sed -i "s/listen.allowed_clients = /;listen.allowed_clients = /g" /etc/php-fpm.d/www.conf
 
