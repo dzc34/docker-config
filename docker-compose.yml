@@ -9,8 +9,6 @@ apache24:
    - ./conf/vhost.d:/etc/httpd/vhost.d
   links:
    - php56fpm
-#   - mariadb10
-#   - memcached
 
 
 # Start php-fpm service from container
@@ -22,12 +20,16 @@ php56fpm:
   volumes:
    - ~/public_html:/var/www/html
   stdin_open: true
+  links:
+   - mariadb10
 
 
 # Start mariadb service from container
-#mariadb10:
-#  image: mariadb
-#  ports:
-#   - "3306:3306"
-#  volumes:
-#   - ./data/mysql:/var/lib/mysql
+mariadb10:
+  image: mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: docker
+  ports:
+   - "3306:3306"
+  volumes:
+   - ./data/mysql:/var/lib/mysql
