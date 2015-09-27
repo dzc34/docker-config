@@ -22,6 +22,7 @@ php56fpm:
   stdin_open: true
   links:
    - mariadb10
+   - memcached
 
 
 # Start mariadb service from container
@@ -33,3 +34,10 @@ mariadb10:
    - "3306:3306"
   volumes:
    - ./data/mysql:/var/lib/mysql
+
+
+# Start memcached service from container
+memcached:
+  image: memcached
+  ports:
+   - "11211:11211"
