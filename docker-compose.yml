@@ -1,5 +1,5 @@
-# Start httpd service from container and share ~/public_http.
-apache:
+# Start httpd service from container and share ~/public_http.stdin_open: true
+apache24:
   build: build/httpd/2.4
   #image: llaumgui/centos-httpd24
   ports:
@@ -7,15 +7,27 @@ apache:
   volumes:
    - ~/public_html:/var/www/html
    - ./conf/vhost.d:/etc/httpd/vhost.d
-#  links:
-   - php-fpm
-#   - database
+  links:
+   - php56fpm
+#   - mariadb10
 #   - memcached
 
 
 # Start php-fpm service from container
-php-fpm:
+php56fpm:
   build: build/php-fpm/5.6
   #image: llaumgui/centos-php56
   ports:
    - "9000:9000"
+  volumes:
+   - ~/public_html:/var/www/html
+  stdin_open: true
+
+
+# Start mariadb service from container
+#mariadb10:
+#  image: mariadb
+#  ports:
+#   - "3306:3306"
+#  volumes:
+#   - ./data/mysql:/var/lib/mysql
