@@ -6,4 +6,5 @@ HTTPd 2.4.12 image build with:
 * Deflate configuration.
 * ETags configuration.
 * Expires configuration.
-* All vHost avalaible in _/etc/httpd/vhost.d_.
+* PHP-FPM handler toward _docker_php56fpm_1_.
+* All vHost avalaible in _/etc/httpd/vhost.d_ (This directory can be shared with the host).
