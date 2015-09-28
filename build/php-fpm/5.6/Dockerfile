@@ -1,4 +1,4 @@
-# PHP-FPM
+# PHP-FPM.
 FROM centos:7
 MAINTAINER Guillaume Kulakowski <guillaume@kulakowski.fr>
 
@@ -8,10 +8,10 @@ LABEL Version=5.6-1.0
 
 EXPOSE 9000
 
-# Install PHP 56 from SCL
+# Install RH-PHP56 collection from SCL.
 RUN yum localinstall -y https://www.softwarecollections.org/en/scls/rhscl/rh-php56/epel-7-x86_64/download/rhscl-rh-php56-epel-7-x86_64.noarch.rpm
 
-# Install PHP 5.6 from SCL
+# Install PHP 5.6 from SCL.
 RUN yum update -y && yum install -y rh-php56-php-bcmath \
     rh-php56-php-cli \
     rh-php56-php-common \
@@ -36,7 +36,7 @@ RUN yum update -y && yum install -y rh-php56-php-bcmath \
     rh-php56-php-xmlrpc
 RUN yum clean all
 
-# symlink
+# Symlink.
 RUN ln -s /etc/opt/rh/rh-php56/php.d/ /etc
 RUN ln -s /etc/opt/rh/rh-php56/php-fpm.d/ /etc
 RUN ln -s /var/opt/rh/rh-php56/log/php-fpm/ /var/log
@@ -44,7 +44,7 @@ RUN mkdir -p /var/www/html
 RUN sed -i "s/listen = 127.0.0.1:9000/listen = [::]:9000/g" /etc/php-fpm.d/www.conf
 RUN sed -i "s/listen.allowed_clients = /;listen.allowed_clients = /g" /etc/php-fpm.d/www.conf
 
-# My configuration
+# My configuration.
 COPY php.d /etc/php.d
 
 CMD ["scl", "enable", "rh-php56", "php-fpm -F"]
