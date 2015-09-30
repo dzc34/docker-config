@@ -15,16 +15,8 @@ RUN yum localinstall -y https://dl.fedoraproject.org/pub/epel/epel-release-lates
 RUN yum update -y && yum install -y sphinx
 RUN yum clean all
 
-# Symlink
-#RUN ln -s /opt/rh/httpd24/root/etc/httpd/ /etc
+# Simple startup script to avoid some issues observed with container restart.
+ADD run-sphinx.sh /run-sphinx.sh
+RUN chmod -v +x /run-sphinx.sh
 
-# My configuration
-#COPY conf.d /etc/httpd/conf.d
-#RUN mkdir /etc/httpd/vhost.d
-#RUN rm -f /etc/httpd/conf.d/welcome.conf
-
-# Simple startup script to avoid some issues observed with container restart
-#ADD run-httpd.sh /run-httpd.sh
-#RUN chmod -v +x /run-httpd.sh
-
-#CMD ["/run-httpd.sh"]
+CMD ["/run-sphinx.sh"]

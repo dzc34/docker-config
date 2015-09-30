@@ -26,17 +26,23 @@ php56fpm:
    - ./log/php56:/var/log/php-fpm
   stdin_open: true
   links:
-   - mariadb10
-   - memcached
-#   - sphinxse
+   - mariadb10:database
+   - memcached:memcached
+   - sphinxse
 
 
 # Start SphinxSE service from container.
-#sphinxse:
-#  #container_name: llaumgui_centos-sphinxse
-#  build: build/sphinxse/2
-#  ports:
-#   - "9312:9312"
+sphinxse:
+  #container_name: llaumgui_centos-sphinxse
+  build: build/sphinxse/2
+  ports:
+   - "9312:9312"
+  volumes:
+    - ./conf/sphinxse:/etc/sphinx
+    - ./data/sphinxse:/var/lib/sphinx
+    - ./log/sphinxse:/var/log/sphinx
+  links:
+   - mariadb10:database
 
 
 # Start mariadb service from container.
