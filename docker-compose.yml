@@ -1,8 +1,8 @@
 # Start httpd service from container and share ~/public_http.
 httpd24:
-  #container_name: llaumgui_centos-scl-httpd24
+  container_name: llaumgui_centos7-scl-httpd24
   build: build/httpd/2.4
-  #image: llaumgui/centos-httpd24
+  #image: llaumgui/centos7-httpd24
   ports:
    - "80:80"
   volumes:
@@ -15,7 +15,7 @@ httpd24:
 
 # Start php-fpm service from container.
 php56fpm:
-  #container_name: llaumgui_centos-scl-php56-fpm
+  container_name: llaumgui_centos7-scl-php56-fpm
   build: build/php-fpm/5.6
   #image: llaumgui/centos-php56
   ports:
@@ -33,7 +33,7 @@ php56fpm:
 
 # Start SphinxSE service from container.
 sphinxse:
-  #container_name: llaumgui_centos-sphinxse
+  container_name: llaumgui_centos7-sphinxse
   build: build/sphinxse/2
   ports:
    - "9312:9312"
@@ -47,7 +47,7 @@ sphinxse:
 
 # Start mariadb service from container.
 mariadb10:
-  #container_name: llaumgui_mariadb
+  container_name: llaumgui_mariadb
   image: mariadb
   environment:
     MYSQL_ROOT_PASSWORD: docker
@@ -59,7 +59,7 @@ mariadb10:
 
 # Start memcached service from container.
 memcached:
-  #container_name: llaumgui_memcached
+  container_name: llaumgui_memcached
   image: memcached
   ports:
    - "11211:11211"
