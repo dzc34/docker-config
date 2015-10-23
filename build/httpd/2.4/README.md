@@ -1,4 +1,6 @@
 # CentOS HTTPd 2.4.12
+An Apache 2.4 from [Software Collections](https://www.softwarecollections.org/en/scls/rhscl/httpd24/) build on [CentOS 7](https://hub.docker.com/_/centos/).
+
 HTTPd 2.4.12 image build with:
 * [CentOS 7](https://hub.docker.com/_/centos/).
 * [HTTPd 2.4.12 from Software Collections](https://www.softwarecollections.org/en/scls/rhscl/httpd24/) (SCL).
