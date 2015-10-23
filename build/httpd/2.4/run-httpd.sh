@@ -9,4 +9,4 @@ SCL_PATH="/opt/rh/${SCL_NAME}/root"
 # if it thinks it is already running.
 rm -rf ${SCL_PATH}/var/run/httpd/* /tmp/httpd* ${SCL_PATH}/tmp/httpd*
 
-scl enable ${SCL_NAME} "exec apachectl -D FOREGROUND"
+scl enable ${SCL_NAME} "exec httpd -D FOREGROUND"
