@@ -5,7 +5,7 @@ MAINTAINER Guillaume Kulakowski <guillaume@kulakowski.fr>
 LABEL Description="CentOS HTTPd 2.4.12 from SCL"
 LABEL Vendor="Guillaume Kulakowski"
 LABEL License=MIT
-LABEL Version=2.4.12.1.0
+LABEL Version=2.4-1.0
 
 EXPOSE 80
 

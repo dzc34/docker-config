@@ -1,0 +1,16 @@
+# Put in /etc/systemd/system/docker-compose.service
+[Unit]
+Description=Start Docker Compose
+After=docker.service
+Requires=docker.service
+
+[Service]
+# Fix your docker-compose.yml path here.
+Environment="YML_PATH=/opt/llaumgui/docker-config/docker-compose.yml"
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/docker-compose -f $YML_PATH start
+ExecStop=/usr/bin/docker-compose -f $YML_PATH stop
+
+[Install]
+WantedBy=multi-user.target
