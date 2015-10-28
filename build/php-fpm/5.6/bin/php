@@ -1,10 +1,10 @@
 #!/bin/bash
 
 COLLECTION="rh-php56"
-args=
 
 source /opt/rh/${COLLECTION}/enable
 
+args=
 for arg in "$@"; do
   args="$args '$arg'"
 done

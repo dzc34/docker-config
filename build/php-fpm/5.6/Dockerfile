@@ -4,6 +4,7 @@ MAINTAINER Guillaume Kulakowski <guillaume@kulakowski.fr>
 
 LABEL Description="CentOS PHP-FPM 5.6 from SCL"
 LABEL Vendor="Guillaume Kulakowski"
+LABEL License=MIT
 LABEL Version=5.6-1.0
 
 EXPOSE 9000
@@ -45,18 +46,36 @@ RUN yum update -y && yum install -y rh-php56-php-bcmath \
     more-php56-php-pecl-sphinx \
     more-php56-php-twig \
     more-php56-php-pecl-varnish \
-    more-php56-php-pecl-yaml
+    more-php56-php-pecl-yaml \
+    git
 RUN yum clean all
+
+# Install /usr/bin/php
+COPY bin/php /usr/bin/php
+RUN chmod +x /usr/bin/php
+
+# Install composer
+RUN mkdir -p /opt/org/composer
+ADD https://getcomposer.org/composer.phar /opt/org/composer/composer.phar
+COPY bin/composer /usr/bin/composer
+RUN chmod +x /usr/bin/composer
+
+# Install Drush
+RUN git clone https://github.com/drush-ops/drush.git /opt/drush
+RUN cd /opt/drush && git checkout 7.0.0 && composer install
+RUN ln -s /opt/drush/drush /usr/bin/drush 
 
 # Symlink.
 RUN ln -s /etc/opt/rh/rh-php56/php.d/ /etc
 RUN ln -s /etc/opt/rh/rh-php56/php-fpm.d/ /etc
 RUN ln -s /var/opt/rh/rh-php56/log/php-fpm/ /var/log
-RUN mkdir -p /var/www/html
-RUN sed -i "s/listen = 127.0.0.1:9000/listen = [::]:9000/g" /etc/php-fpm.d/www.conf
-RUN sed -i "s/listen.allowed_clients = /;listen.allowed_clients = /g" /etc/php-fpm.d/www.conf
+RUN mkdir -p /var/www
 
 # My configuration.
-COPY php.d /etc/php.d
+RUN sed -i "s/listen = 127.0.0.1:9000/listen = [::]:9000/g" /etc/php-fpm.d/www.conf
+RUN sed -i "s/listen.allowed_clients = /;listen.allowed_clients = /g" /etc/php-fpm.d/www.conf
+RUN sed -i "/^;security.limit_extensions =.*/asecurity.limit_extensions = .php .php5 .php56" /etc/php-fpm.d/www.conf
+
+WORKDIR /var/www
 
 CMD ["scl", "enable", "rh-php56", "php-fpm -F"]
