@@ -1,8 +1,8 @@
 # Start httpd service from container and share ~/public_http.
 httpd24:
   container_name: llaumgui_centos7-scl-httpd24
-  build: build/httpd/2.4
-  #image: llaumgui/centos7-httpd24
+  image: llaumgui/centos7-scl-httpd24
+  #build: build/httpd/2.4
   ports:
    - "80:80"
   volumes:

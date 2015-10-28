@@ -13,4 +13,4 @@ With configuration:
 * You can put your vhost in _/etc/httpd/vhost.d_ (This directory can be shared with the host).
 
 Work also with
-* PHP-FPM handler toward *llaumgui_centos7-scl-php56-fpm*.
+* [PHP-FPM](https://github.com/llaumgui/docker-config/blob/master/build/httpd/2.4/conf.d/php.conf) handler toward *llaumgui_centos7-scl-php56-fpm*.
