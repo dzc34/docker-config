@@ -1,49 +1,49 @@
 # Start httpd service from container and share ~/public_http.
 httpd24:
   container_name: llaumgui_centos7-scl-httpd24
+  #build: ../docker-images/httpd/2.4
   image: llaumgui/centos7-scl-httpd24
-  #build: build/httpd/2.4
   ports:
    - "80:80"
   volumes:
+   - /etc/localtime:/etc/localtime:ro
    - ~/public_html:/var/www/html
    - ./conf/httpd24/vhost.d:/etc/httpd/vhost.d
    - ./log/httpd24:/var/log/httpd24
   links:
    - php56fpm
 
-
 # Start php-fpm service from container.
 php56fpm:
   container_name: llaumgui_centos7-scl-php56-fpm
-  build: build/php-fpm/5.6
-  #image: llaumgui/centos-php56
+  #build: ../docker-images/php-fpm/5.6
+  image: llaumgui/centos7-scl-php56
   ports:
    - "9000:9000"
   volumes:
+   - /etc/localtime:/etc/localtime:ro
    - ~/public_html:/var/www/html
    - ./conf/php56/90-custom.ini:/etc/php.d/90-custom.ini
    - ./log/php56:/var/log/php-fpm
-  stdin_open: true
   links:
-   - mariadb10:database
-   - memcached:memcached
-   - sphinxse
-
+   - mariadb10:container_database
+   - memcached:container_memcached
+   - sphinxse:container_sphinx
 
 # Start SphinxSE service from container.
 sphinxse:
   container_name: llaumgui_centos7-sphinxse
-  build: build/sphinxse/2
+  build: ../docker-images/sphinxse/2
+  #image: llaumgui/centos7-scl-php56
   ports:
    - "9312:9312"
   volumes:
-    - ./conf/sphinxse:/etc/sphinx
+    - /etc/localtime:/etc/localtime:ro
     - ./data/sphinxse:/var/lib/sphinx
+    - ./conf/sphinxse:/etc/sphinx
     - ./log/sphinxse:/var/log/sphinx
   links:
-   - mariadb10:database
-
+   - mariadb10:container_database
 
 # Start mariadb service from container.
 mariadb10:
@@ -54,8 +54,8 @@ mariadb10:
   ports:
    - "3306:3306"
   volumes:
+   - /etc/localtime:/etc/localtime:ro
    - ./data/mysql:/var/lib/mysql
-
 
 # Start memcached service from container.
 memcached:
@@ -63,3 +63,5 @@ memcached:
   image: memcached
   ports:
    - "11211:11211"
+  volumes:
+   - /etc/localtime:/etc/localtime:ro
