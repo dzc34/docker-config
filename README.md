@@ -1,5 +1,9 @@
-# Docker config (full Apache / MariaDB / PHP stack)
-Build a full stack DAMP (Docker / Apache / MariaDB / PHP) using docker and docker-compose.
+# My docker configuration for LAMP stack
+Build a full stack DAMP (Docker / Apache / MariaDB / PHP) using [docker](https://www.docker.com) and [docker-compose](https://www.docker.com/docker-compose).
+
+## Requirements
+* docker >= 1.8
+* docker-compose >= 1.4
 
 ## Features
 ### Apache container
@@ -14,11 +18,17 @@ A container based on CentOS 7 using [PHP 5.6 from SCL](https://www.softwarecolle
 * Share ./volumes/log/php56 to log.
 
 ### MariaDB container
+A [MariaDB](https://hub.docker.com/_/mariadb/) container: 
+* Share ./volumes/data/mysql to store data.
 
 ### Memcached container
+A [Memcached](https://hub.docker.com/_/memcached/) container.
 
 ### Sphinx Search Engine container
-## SELinux consideration
+A container based on CentOS 7 using Sphinx 2.0:  [llaumgui/centos7-sphinx](https://hub.docker.com/r/llaumgui/centos7-sphinx/):
+* Share ./volumes/data/sphinxse to store data.
+
+## SELinux considerations
 * Allow access to Docker at your folders:
 ~~~bash
 chcon -Rt svirt_sandbox_file_t ./volumes
@@ -27,3 +37,7 @@ chcon -Rt svirt_sandbox_file_t ./volumes
 ~~~bash
 semanage fcontext -a -t svirt_sandbox_file_t '/home/(.*/)?public_html(/.*)?'
 ~~~
+
+## Systemd considerations
+* Put *systemd/docker-compose.service* in */etc/systemd/system/docker-compose.service*.
+* Put and setup *systemd/docker-compose* in */etc/sysconfig/docker-compose*. 
