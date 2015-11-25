@@ -49,8 +49,8 @@ sphinxse:
 mariadb10:
   container_name: llaumgui_mariadb
   image: mariadb
-  environment:
-    MYSQL_ROOT_PASSWORD: docker
+  env_file:
+    - .env
   ports:
    - "3306:3306"
   volumes:
