@@ -33,8 +33,8 @@ php56:
 # Start SphinxSE service from container.
 sphinxse:
   container_name: llaumgui_centos7-sphinxse
-  build: ../docker-images/sphinxse/2
-  #image: llaumgui/centos7-scl-php56
+  #build: ../docker-images/sphinxse/2
+  image: llaumgui/centos7-sphinx
   expose:
    - 9312
   volumes:
