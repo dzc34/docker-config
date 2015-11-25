@@ -18,8 +18,8 @@ php56:
   container_name: llaumgui_centos7-scl-php56
   #build: ../docker-images/php-fpm/5.6
   image: llaumgui/centos7-scl-php56
-  ports:
-   - "9000:9000"
+  expose:
+   - 9000
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - ~/public_html:/var/www/html
@@ -35,8 +35,8 @@ sphinxse:
   container_name: llaumgui_centos7-sphinxse
   build: ../docker-images/sphinxse/2
   #image: llaumgui/centos7-scl-php56
-  ports:
-   - "9312:9312"
+  expose:
+   - 9312
   volumes:
     - /etc/localtime:/etc/localtime:ro
     - ./volumes/data/sphinxse:/var/lib/sphinx
@@ -61,7 +61,7 @@ mariadb10:
 memcached:
   container_name: llaumgui_memcached
   image: memcached
-  ports:
-   - "11211:11211"
+  expose:
+   - 11211
   volumes:
    - /etc/localtime:/etc/localtime:ro
