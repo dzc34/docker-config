@@ -1,67 +1,88 @@
-# Start httpd service from container and share ~/public_http.
+### Start httpd service from container and share ~/public_http.
 httpd24:
   container_name: llaumgui_centos7-scl-httpd24
   #build: ../docker-images/httpd/2.4
   image: llaumgui/centos7-scl-httpd24
-  ports:
-   - "80:80"
+  mem_limit: 512m
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - ~/public_html:/var/www/html
    - ./volumes/conf/httpd24/vhost.d:/etc/httpd/vhost.d:ro
    - ./volumes/log/httpd24:/var/log/httpd24
+  ports:
+   - 80:80
   links:
    - php56
 
-# Start php-fpm service from container.
+
+### Start php-fpm service from container.
 php56:
   container_name: llaumgui_centos7-scl-php56
   #build: ../docker-images/php-fpm/5.6
   image: llaumgui/centos7-scl-php56
-  expose:
-   - 9000
+  mem_limit: 1g
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - ~/public_html:/var/www/html
    - ./volumes/conf/php56/90-custom.ini:/etc/php.d/90-custom.ini:ro
    - ./volumes/log/php56:/var/log/php-fpm
+  expose:
+   - 9000
   links:
    - mariadb10:container_database
    - memcached:container_memcached
    - sphinxse:container_sphinx
 
-# Start SphinxSE service from container.
+
+### Start SphinxSE service from container.
 sphinxse:
   container_name: llaumgui_centos7-sphinxse
   #build: ../docker-images/sphinxse/2
   image: llaumgui/centos7-sphinx
-  expose:
-   - 9312
+  mem_limit: 1g
   volumes:
     - /etc/localtime:/etc/localtime:ro
     - ./volumes/data/sphinxse:/var/lib/sphinx
     - ./volumes/conf/sphinxse:/etc/sphinx:ro
     - ./volumes/log/sphinxse:/var/log/sphinx
+  expose:
+   - 9312
   links:
    - mariadb10:container_database
 
-# Start mariadb service from container.
+
+### Start mariadb service from container.
 mariadb10:
   container_name: llaumgui_mariadb
   image: mariadb
+  mem_limit: 1g
   env_file:
     - .env
-  ports:
-   - "3306:3306"
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - ./volumes/data/mysql:/var/lib/mysql
+  ports:
+   - 3306:3306
+ 
 
 # Start memcached service from container.
 memcached:
   container_name: llaumgui_memcached
   image: memcached
-  expose:
-   - 11211
+  mem_limit: 256m
   volumes:
    - /etc/localtime:/etc/localtime:ro
+  expose:
+   - 11211
+
+
+### Start DockerUI service from container.
+dockerui:
+  container_name: llaumgui_dockerui
+  image: dockerui/dockerui
+  mem_limit: 128m
+  volumes:
+   - /etc/localtime:/etc/localtime:ro
+  ports:
+   - 9000:9000
+
