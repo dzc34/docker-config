@@ -1,9 +1,9 @@
 ### Start httpd service from container and share ~/public_http.
 httpd24:
   container_name: llaumgui_centos7-scl-httpd24
-  #build: ../docker-images/httpd/2.4
   image: llaumgui/centos7-scl-httpd24
   mem_limit: 512m
+  restart: always
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - ~/public_html:/var/www/html
@@ -21,6 +21,7 @@ php56:
   #build: ../docker-images/php-fpm/5.6
   image: llaumgui/centos7-scl-php56
   mem_limit: 1g
+  restart: always
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - ~/public_html:/var/www/html
@@ -40,6 +41,7 @@ sphinxse:
   #build: ../docker-images/sphinxse/2
   image: llaumgui/centos7-sphinx
   mem_limit: 1g
+  restart: always
   volumes:
     - /etc/localtime:/etc/localtime:ro
     - ./volumes/data/sphinxse:/var/lib/sphinx
@@ -58,6 +60,7 @@ mariadb10:
   mem_limit: 1g
   env_file:
     - .env
+  restart: always
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - ./volumes/data/mysql:/var/lib/mysql
@@ -83,6 +86,7 @@ dockerui:
   mem_limit: 128m
   volumes:
    - /etc/localtime:/etc/localtime:ro
+   - /var/run/docker.sock:/var/run/docker.sock
   ports:
    - 9000:9000
 

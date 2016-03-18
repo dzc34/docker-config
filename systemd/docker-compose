@@ -1,3 +1,0 @@
-# Put in /etc/sysconfig/docker-compose
-
-DOCKER_COMPOSE_YML=/opt/llaumgui/docker/docker-compose.yml
